@@ -24,7 +24,7 @@ import play.mvc.Security;
 public class Application extends Controller {
 	private static final int MAX_DENUNCIAS = 3;
 	private static GenericDAOImpl dao = new GenericDAOImpl();
-	
+    private static Map<Integer, Dica> mapaDica = null;
 	@Transactional
 	@Security.Authenticated(Secured.class)
     public static Result index() {
@@ -96,54 +96,18 @@ public class Application extends Controller {
 		if (filledForm.hasErrors()) {
 			return tema(idTema);
 		} else {
-			String tipoKey = formMap.get("tipo");
-			switch (tipoKey) {
-				case "assunto":
-					String assunto = formMap.get("assunto");
-					DicaAssunto dicaAssunto = new DicaAssunto(assunto);
-					
-					tema.addDica(dicaAssunto);
-					dicaAssunto.setTema(tema);
-					dicaAssunto.setUser(userName);
-					dao.persist(dicaAssunto);				
-					break;
-				case "conselho":
-					String conselho = formMap.get("conselho");
-					DicaConselho dicaConselho = new DicaConselho(conselho);
-					
-					tema.addDica(dicaConselho);
-					dicaConselho.setTema(tema);
-					dicaConselho.setUser(userName);
-					dao.persist(dicaConselho);				
-					break;
-				case "disciplina":
-					String disciplinas = formMap.get("disciplinas");
-					String razao = formMap.get("razao");
-					
-					DicaDisciplina dicaDisciplina = new DicaDisciplina(disciplinas, razao);
-					
-					tema.addDica(dicaDisciplina);
-					dicaDisciplina.setTema(tema);
-					dicaDisciplina.setUser(userName);
-					dao.persist(dicaDisciplina);
-					break;
-				case "material":
-					String url = formMap.get("url");
-					DicaMaterial dicaMaterial = new DicaMaterial(url);
-									
-					tema.addDica(dicaMaterial);
-					dicaMaterial.setTema(tema);
-					dicaMaterial.setUser(userName);
-					dao.persist(dicaMaterial);				
-					break;
-				default:
-					break;
-			}
-			
+			int tipoKey = Integer.valueOf(formMap.get("tipo"));
+            String descricao = formMap.get("descricao");
+            String razao = formMap.get("razao");
+            Map<Integer, Dica> tiposDeDica = Dica.getMapaDeDicas(descricao, razao);
+            Dica dica = tiposDeDica.get(tipoKey);
+            dica.setTema(tema);
+            dica.setUser(userName);
+            tema.addDica(dica);
+            dao.persist(dica);
 			dao.merge(tema);
-			
 			dao.flush();			
-			
+			tiposDeDica = null;
 			return redirect(routes.Application.tema(idTema));
 		}
 	}

@@ -1,5 +1,7 @@
 package models;
 
+import models.dao.GenericDAOImpl;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,9 +62,29 @@ public abstract class Dica implements Comparable<Dica>{
 	
 	public Dica(){}
 
+    public static final int TIPO_ASSUNTO = 0;
+    public static final int TIPO_DISCIPLINA = 1;
+    public static final int TIPO_MATERIAL = 2;
+    public static final int TIPO_CONSELHO = 3;
+
+    public static Map<Integer, Dica> getMapaDeDicas(String description, String razao)
+    {
+        Map<Integer, Dica> map = new HashMap<Integer, Dica>();
+        map.put(TIPO_ASSUNTO, new DicaAssunto(description));
+        map.put(TIPO_DISCIPLINA, new DicaDisciplina(description,razao));
+        map.put(TIPO_MATERIAL, new DicaMaterial(description));
+        map.put(TIPO_CONSELHO, new DicaConselho(description));
+        return map;
+    }
+
+
 	public Tema getTema() {
 		return tema;
 	}
+
+    public void cardasTrar(){};
+
+    public String getFormKey(){ return ""; };
 
 	public void setTema(Tema tema) {
 		this.tema = tema;
