@@ -4,14 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import models.Dica;
-import models.DicaAssunto;
-import models.DicaConselho;
-import models.DicaDisciplina;
-import models.DicaMaterial;
-import models.Disciplina;
-import models.MetaDica;
-import models.Tema;
+import models.*;
 import models.dao.GenericDAOImpl;
 import play.Logger;
 import play.data.DynamicForm;
@@ -302,25 +295,8 @@ public class Application extends Controller {
 		Dica dica = dao.findByEntityId(Dica.class, idDica);
 		
 		String login = session("login");
-		if (!dica.wasFlaggedByUser(login)) {
-			dica.addUsuarioFlag(login);
-			dica.incrementaFlag();
-			
-			if (dica.getFlag() == MAX_DENUNCIAS) {
-				dao.removeById(Dica.class, idDica);
-				
-				for (MetaDica metadica : dica.getMetaDicas()) {
-					metadica.getDicasAdicionadas().remove(dica);
-					dao.merge(metadica);
-				}
-			} else {
-				dao.merge(dica);
-			}
-		} else {
-			flash("fail", "Usuário já denunciou a dica.");
-		}
-		
-		dao.flush();
+        Denunciador d = new Denunciador(MAX_DENUNCIAS,login,dao);
+        d.denuncia(dica);
 		
 		return redirect(routes.Application.tema(dica.getTema().getId()));
 	}
@@ -340,20 +316,8 @@ public class Application extends Controller {
 		MetaDica metaDica = dao.findByEntityId(MetaDica.class, idMetaDica);
 		
 		String login = session("login");
-		if (!metaDica.wasFlaggedByUser(login)) {
-			metaDica.addUsuarioFlag(login);
-			metaDica.incrementaFlag();
-			
-			if (metaDica.getFlag() == MAX_DENUNCIAS) {
-				dao.removeById(MetaDica.class, idMetaDica);
-			} else {
-				dao.merge(metaDica);
-			}
-		} else {
-			flash("fail", "Usuário já denunciou a dica.");
-		}
-		
-		dao.flush();
+        Denunciador d = new Denunciador(MAX_DENUNCIAS,login,dao);
+        d.denuncia(metaDica);
 		
 		return redirect(routes.Application.disciplina(metaDica.getDisciplina().getId()));
 	}

@@ -21,7 +21,7 @@ import javax.persistence.Transient;
 
 @Table(name="dica")
 @Entity(name="Dica")
-public abstract class Dica implements Comparable<Dica>{
+public abstract class Dica implements Comparable<Dica>, Denunciavel{
 	@Id
 	@GeneratedValue
 	@Column
@@ -77,7 +77,6 @@ public abstract class Dica implements Comparable<Dica>{
         return map;
     }
 
-
 	public Tema getTema() {
 		return tema;
 	}
@@ -91,7 +90,7 @@ public abstract class Dica implements Comparable<Dica>{
 		this.usersCommentaries = new HashMap<String,String>();
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -144,6 +143,15 @@ public abstract class Dica implements Comparable<Dica>{
 	public void incrementaFlag() {
 		this.flag = flag + 1;
 	}
+
+    public boolean denunciarDica(String userLogin){
+        if(this.wasFlaggedByUser(userLogin)){
+            this.addUsuarioFlag(userLogin);
+            this.incrementaFlag();
+            return true;
+        }
+        return false;
+    }
 
 	public String getUser() {
 		return username;
