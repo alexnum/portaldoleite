@@ -25,6 +25,11 @@ public class DicaMaterial extends Dica{
 		this.url = url;
 	}
 
+    @Override
+    public String getLabel(){
+        return "Recomendação de material";
+    }
+
 	@Override
 	public String getTexto() {
 		return getUrl();

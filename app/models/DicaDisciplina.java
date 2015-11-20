@@ -37,6 +37,11 @@ public class DicaDisciplina extends Dica{
 		this.razao = razao;
 	}
 
+    @Override
+    public String getLabel(){
+        return "Principais Disciplinas";
+    }
+
 	@Override
 	public String getTexto() {
 		return this.nomeDisciplina;

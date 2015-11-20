@@ -30,6 +30,11 @@ public class DicaAssunto extends Dica{
 		return getAssunto();
 	}
 
+    @Override
+    public String getLabel(){
+        return "Principais Assuntos";
+    }
+
 	@Override
 	public String getTipo() {
 		return "DicaAssunto";

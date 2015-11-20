@@ -9,10 +9,13 @@ import models.dao.GenericDAOImpl;
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
+import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
+
+import javax.persistence.Query;
 
 public class Application extends Controller {
 	private static final int MAX_DENUNCIAS = 3;
@@ -22,7 +25,11 @@ public class Application extends Controller {
 	@Security.Authenticated(Secured.class)
     public static Result index() {
 		List<Disciplina> disciplinas = dao.findAllByClassName(Disciplina.class.getName());
-        return ok(views.html.index.render(disciplinas));
+        List<User> usuarios = dao.findAllByClassName(User.class.getName());
+        dao.findAllByClassName(User.class.getName());
+        String hql = "FROM " + Dica.class.getName()  + " ORDER BY Id DESC";
+        TimeLine timeLineIndex = new TimeLine(dao,hql);
+        return ok(views.html.index.render(disciplinas, usuarios, timeLineIndex));
     }
 	
 	@Transactional
@@ -66,6 +73,19 @@ public class Application extends Controller {
 		
 		return ok(views.html.metadica.render(listaDisciplina, disciplina, metadica));
 	}
+
+    @Transactional
+    @Security.Authenticated(Secured.class)
+    public static Result dica(long id) {
+        List<Disciplina> listaDisciplina = dao.findAllByClassName(Disciplina.class.getName());
+        Dica dica = dao.findByEntityId(Dica.class, id);
+        Disciplina disciplina = dica.getTema().getDisciplina();
+        if(disciplina == null || dica == null){
+            return erro();
+        }
+
+        return ok(views.html.dica.render(listaDisciplina, disciplina, dica));
+    }
 	
 	@Transactional
 	public static Result erro(){
@@ -162,7 +182,7 @@ public class Application extends Controller {
 			dao.flush();
 		}
 		
-		return redirect(routes.Application.tema(dica.getTema().getId()));
+		return redirect(routes.Application.dica(dica.getId()));
 	}
 
 	@Transactional

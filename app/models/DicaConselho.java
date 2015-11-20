@@ -29,6 +29,11 @@ public class DicaConselho extends Dica{
 	public String getTexto() {
 		return getConselho();
 	}
+
+    @Override
+    public String getLabel(){
+        return "Conselho";
+    }
 	
 	@Override
 	public String getTipo() {

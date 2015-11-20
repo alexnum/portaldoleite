@@ -120,6 +120,8 @@ public abstract class Dica implements Comparable<Dica>, Denunciavel{
 		this.discordancias = discordancias + 1;
 	}
 
+    public String getLabel(){ return ""; }
+
 	public int getDiscordancias() {
 		return discordancias;
 	}
