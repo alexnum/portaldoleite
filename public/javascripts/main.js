@@ -10,9 +10,16 @@ function denunciarMetaDica(id){
 	document.forms["formDenunciarMeta"+id].submit();
 }
 
+var index = angular.module('index', []);
+
+index.controller('filterDicaController', function($scope) {
+    $scope.filterTimeLine = function(filterTrype){
+        window.location = '/?s='+filterTrype;
+    }
+});
 
 
-var app = angular.module('tema', [], function($provide) {
+var tema = angular.module('tema', [], function($provide) {
     $provide.factory('msgBus', ['$rootScope', function($rootScope) {
         var msgBus = {};
         msgBus.emitMsg = function(msg) {
@@ -28,7 +35,7 @@ var app = angular.module('tema', [], function($provide) {
 
 
 
-app.controller('submitDicaController', function($scope, msgBus) {
+tema.controller('submitDicaController', function($scope, msgBus) {
     this.qty = 1;
     this.current = {};
     var controller = this;
@@ -37,7 +44,7 @@ app.controller('submitDicaController', function($scope, msgBus) {
     });
 });
 
-app.controller('submitTypeSelector', function($scope, msgBus) {
+tema.controller('submitTypeSelector', function($scope, msgBus) {
     this.qty = 1;
 
     $scope.assunto =

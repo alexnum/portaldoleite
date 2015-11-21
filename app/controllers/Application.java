@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import models.*;
+import models.configuracoesDeTimeLine.OrganizadorPorData;
+import models.configuracoesDeTimeLine.OrganizadorPorDiscordancias;
+import models.configuracoesDeTimeLine.OrganizadorPorVotosPositivos;
 import models.dao.GenericDAOImpl;
 import play.Logger;
 import play.data.DynamicForm;
@@ -26,9 +29,28 @@ public class Application extends Controller {
     public static Result index() {
 		List<Disciplina> disciplinas = dao.findAllByClassName(Disciplina.class.getName());
         List<User> usuarios = dao.findAllByClassName(User.class.getName());
+        TimeLine timeLineIndex = null;
+        String sortType = request().getQueryString("s");
+        if(sortType != null){
+            switch (sortType) {
+                case "DATA":
+                    timeLineIndex = new TimeLine(dao, new OrganizadorPorData());
+                    break;
+                case "DISC":
+                    timeLineIndex = new TimeLine(dao, new OrganizadorPorDiscordancias());
+                    break;
+                case "CONC":
+                    timeLineIndex = new TimeLine(dao, new OrganizadorPorVotosPositivos());
+                    break;
+                default:
+                    timeLineIndex = new TimeLine(dao, new OrganizadorPorData());
+                    break;
+            }
+        }else{
+            timeLineIndex = new TimeLine(dao, new OrganizadorPorData());
+        }
         dao.findAllByClassName(User.class.getName());
         String hql = "FROM " + Dica.class.getName()  + " ORDER BY Id DESC";
-        TimeLine timeLineIndex = new TimeLine(dao,hql);
         return ok(views.html.index.render(disciplinas, usuarios, timeLineIndex));
     }
 	
