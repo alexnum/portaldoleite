@@ -66,7 +66,7 @@ public class Global extends GlobalSettings {
         for(Tema t: si1.getTemas()){
             t.setDisciplina(si1);
         }
-                 //Disciplina: Lógica Matemática
+                 //Disciplina: Cálculo Diferencial e Integral I
                 Disciplina calc = new Disciplina("Cálculo Diferencial e Integral I");
                 calc.addTema(new Tema("Limites e Continuidade"));
                 calc.addTema(new Tema("Introdução ao conceito de limite"));
