@@ -42,9 +42,7 @@ public class RegistroTest extends AbstractTest{
 	@Test
 	public void deveRegistrarUser() {
 		List<User> users = dao.findAllByClassName("User");
-		
-		assertThat(users).isEmpty();
-		
+
 		FakeRequest fakeRequest = new FakeRequest();
 		Map<String, String> form = new HashMap<String, String>();
 		form.put("nome", "joao");
@@ -81,7 +79,7 @@ public class RegistroTest extends AbstractTest{
 		
 		List<User> users = dao.findAllByClassName("User");
 		
-		assertThat(users.size()).isEqualTo(1);
+		assertThat(users.size()).isEqualTo(11);
 		
 		FakeRequest fakeRequest2 = new FakeRequest();
 		Map<String, String> form2 = new HashMap<String, String>();
@@ -97,7 +95,7 @@ public class RegistroTest extends AbstractTest{
 		
 		users = dao.findAllByClassName("User");
 		
-		assertThat(users.size()).isEqualTo(1);
+		assertThat(users.size()).isEqualTo(11);
 		Map<String, String> flash = new HashMap<String, String>();
 		flash.put("fail", "Login em uso");
 		assertThat(flash(result)).isEqualTo(flash);
@@ -122,7 +120,7 @@ public class RegistroTest extends AbstractTest{
 		
 		List<User> users = dao.findAllByClassName("User");
 		
-		assertThat(users.size()).isEqualTo(1);
+		assertThat(users.size()).isEqualTo(11);
 		
 		FakeRequest fakeRequest2 = new FakeRequest();
 		Map<String, String> form2 = new HashMap<String, String>();
@@ -138,7 +136,7 @@ public class RegistroTest extends AbstractTest{
 		
 		users = dao.findAllByClassName("User");
 		
-		assertThat(users.size()).isEqualTo(1);
+		assertThat(users.size()).isEqualTo(11);
 		Map<String, String> flash = new HashMap<String, String>();
 		flash.put("fail", "E-mail em uso");
 		assertThat(flash(result)).isEqualTo(flash);
