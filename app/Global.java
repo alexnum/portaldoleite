@@ -158,12 +158,20 @@ public class Global extends GlobalSettings {
         dica.setTema(d1.getTemaByNome("Análise x Design"));
         dica.setConselho("Procure sempre fazer uma avaliação");
         dica.setUser("usuario0");
+        dica.incrementaDiscordancias();
+        dica.incrementaDiscordancias();
+        dica.incrementaConcordancias();
+        dica.incrementaConcordancias();
+        dica.incrementaConcordancias();
         d1.getTemaByNome("Análise x Design").addDica(dica);
 
         DicaConselho dica1 = new DicaConselho();
         dica1.setTema(d1.getTemaByNome("Orientação a objetos"));
         dica1.setConselho("Faça uma revisão no seu material de P2.");
         dica1.setUser("usuario1");
+        dica1.incrementaConcordancias();
+        dica1.incrementaDiscordancias();
+        dica1.incrementaConcordancias();
         d1.getTemaByNome("Orientação a objetos").addDica(dica1);
 
         DicaAssunto dica2 = new DicaAssunto();
@@ -171,24 +179,31 @@ public class Global extends GlobalSettings {
         dica2.setAssunto("Não importa o que faça ou quanto estude, você vai sofrer aqui. " +
                 "Não existem muitos materiais para aprender o Play, mas comece com a documentação");
         dica2.setUser("usuario2");
+        dica2.incrementaConcordancias();
+        dica2.incrementaConcordancias();
         d1.getTemaByNome("Play").addDica(dica2);
 
         DicaConselho dica3 = new DicaConselho();
         dica3.setTema(d1.getTemaByNome("Labs"));
         dica3.setConselho("Faça o máximo que puder aqui, envie tudo, mesmo que você ache que não irá valer nada.");
         dica3.setUser("usuario3");
+        dica3.incrementaDiscordancias();
+        dica3.incrementaDiscordancias();
         d1.getTemaByNome("Labs").addDica(dica3);
 
         DicaMaterial dica4 = new DicaMaterial();
         dica4.setTema(d1.getTemaByNome("GoF"));
         dica4.setUrl("http://www.tutorialspoint.com/design_pattern/index.htm");
         dica4.setUser("usuario5");
+        dica4.incrementaConcordancias();
+        dica4.incrementaConcordancias();
         d1.getTemaByNome("GoF").addDica(dica4);
 
         DicaConselho dica5 = new DicaConselho();
         dica5.setTema(d2.getTemaByNome("Definição de limite"));
         dica5.setConselho("Há vários tutoriais de limites, visto que é o mais fácil de entender!");
         dica5.setUser("usuario4");
+        dica5.incrementaConcordancias();
         d2.getTemaByNome("Definição de limite").addDica(dica5);
 
         DicaConselho dica6 = new DicaConselho();
@@ -196,8 +211,49 @@ public class Global extends GlobalSettings {
         dica6.setConselho("Dois assuntos importantíssimos para utilizar o padrão de projeto Strategy deixando o código menos acoplado, aberto para extensões e" +
                 "fechado para modificações. Há videos no youtube que ensinam bem!");
         dica6.setUser("usuario4");
+        dica6.incrementaDiscordancias();
+        dica6.incrementaConcordancias();
         d3.getTemaByNome("Interfaces e Polimorfismo").addDica(dica6);
 
+        DicaConselho dica7 = new DicaConselho();
+        dica7.setTema(d2.getTemaByNome("Taxas relacionadas"));
+        dica7.setConselho("Assunto extremamente difícil, deve obter muita prática nos exercícios proposto no livro");
+        dica7.setUser("usuario5");
+        dica7.incrementaConcordancias();
+        dica7.incrementaDiscordancias();
+        dica7.incrementaDiscordancias();
+        dica7.incrementaDiscordancias();
+        d2.getTemaByNome("Taxas relacionadas").addDica(dica7);
+
+        DicaConselho dica8 = new DicaConselho();
+        dica8.setTema(d3.getTemaByNome("Tratamento de Erros com Exceções + Enumerações"));
+        dica8.setConselho("Muito importante esse conteúdo, pois aprimorando experiência no assunto você ficará mais apto a utilizar o " +
+                "padrão TDD que é de fundamental aprendizagem");
+        dica8.setUser("usuario3");
+        dica8.incrementaConcordancias();
+        dica8.incrementaConcordancias();
+        d3.getTemaByNome("Tratamento de Erros com Exceções + Enumerações").addDica(dica8);
+
+        DicaConselho dica9 = new DicaConselho();
+        dica9.setTema(d2.getTemaByNome("Substituições trigonométricas"));
+        dica9.setConselho("Você deve praticar constantemente esse assunto, pois deverá entender como cada substituição trigonométrica será aplicada");
+        dica9.setUser("usuario4");
+        dica9.incrementaDiscordancias();
+        dica9.incrementaConcordancias();
+        dica9.incrementaConcordancias();
+        d2.getTemaByNome("Substituições trigonométricas").addDica(dica9);
+
+        DicaConselho dica10 = new DicaConselho();
+        dica10.setTema(d3.getTemaByNome("Criação de Classes I: Testes de Unidades"));
+        dica10.setConselho("Esse conteúdo deverá ser estudado com muito cuidado para obter a prática nos testes de unidades " +
+                "e poder aplicá-los. Há vários materiais com exemplos que é de fácil entendimento para o aluno.");
+        dica10.setUser("usuario1");
+        dica10.incrementaConcordancias();
+        dica10.incrementaConcordancias();
+        dica10.incrementaConcordancias();
+        dica10.incrementaConcordancias();
+        d3.getTemaByNome("Criação de Classes I: Testes de Unidades").addDica(dica10);
+        
         dao.persist(d1);
         dao.persist(d2);
         dao.persist(d3);

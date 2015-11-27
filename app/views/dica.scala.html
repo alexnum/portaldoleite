@@ -1,4 +1,4 @@
-@(disciplinas: List[Disciplina])(disciplinaAtual: Disciplina)(dica: Dica)
+F@(disciplinas: List[Disciplina])(disciplinaAtual: Disciplina)(dica: Dica)
 
 <!DOCTYPE html>
 
@@ -38,7 +38,6 @@
             			</div>
 						<ul class="uk-nav uk-nav-side">
 							<li class="uk-divider"></li>
-                            //TODO tira esse if maldito
 							@for(disciplina <- disciplinas){
             					@if(disciplina.getId() == disciplinaAtual.getId()){
             						<li class="uk-nav-header uk-active"><a href="/disciplina/@disciplina.getId()">@disciplina.getNome()</a></li>
