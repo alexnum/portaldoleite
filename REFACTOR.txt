@@ -1,0 +1,9 @@
+https://github.com/alexnum/portaldoleite/commit/fec2ff7a78233823223e542b2e9dd0ae1d10121e?diff=split#diff-815abc3aa45ba0cc93da77866150376e - Alto acoplamento onde para cada opção de tipo de dica, um dialog diferente era usado, agora se usa apenas um dialog e o utiliza-se o angular para gerenciar o que populará esse dialog.
+
+https://github.com/alexnum/portaldoleite/commit/fec2ff7a78233823223e542b2e9dd0ae1d10121e?diff=split#diff-fdebe9b141e34cc47158f8b5ce8dbf80 - Abordagem baseada em strategy para remoção do switch case, forenecendo uma maior extensibilidade
+
+https://github.com/alexnum/portaldoleite/commit/efe81e6748e55bc31547ce9997e168f38ef631ed?diff=split - Criação de um expert da informação para dicas, onde a lógica da ação de denúncia foi atribuida a um novo tipo de objeto "Denunciador", que possui o método "Denuncia", que recebe um objeto que obedece a interface "Denunciavel",podendo assim no futuro ser escalado para denunciar Usuarios ou outras entidades sem repetir a implementação da lógica.
+
+
+
+
